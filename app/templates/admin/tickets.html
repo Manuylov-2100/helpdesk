@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Все заявки{% endblock %}
+{% block crumbs %}<span>/</span><a href="{{ url_for('admin.dashboard') }}">Администрирование</a><span>/</span><span>Заявки</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "admin/_sidebar.html" %}
+    <section class="content">
+        <h1>Реестр заявок</h1>
+        <table class="data-table">
+            <thead><tr><th>Номер</th><th>Тема</th><th>Заявитель</th><th>Статус</th><th>Создана</th><th>Акт</th></tr></thead>
+            <tbody>
+            {% for t in pagination.items %}
+                <tr>
+                    <td><a href="{{ url_for('specialist.work', ticket_id=t.id) }}">{{ t.number }}</a></td>
+                    <td>{{ t.title }}</td><td>{{ t.author.full_name }}</td>
+                    <td><span class="badge">{{ t.status.name }}</span></td>
+                    <td>{{ t.created_at.strftime('%d.%m.%Y') }}</td>
+                    <td><a href="{{ url_for('admin.ticket_act', ticket_id=t.id) }}" class="btn btn-small btn-ghost">.docx</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if pagination.pages > 1 %}
+        <div class="pagination">
+            {% for p in pagination.iter_pages() %}{% if p %}<a href="{{ url_for('admin.tickets', page=p) }}" class="{{ 'active' if p == pagination.page }}">{{ p }}</a>{% else %}<span>…</span>{% endif %}{% endfor %}
+        </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
