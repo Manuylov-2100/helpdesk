@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Обработка заявки {{ ticket.number }}{% endblock %}
+{% block crumbs %}<span>/</span><a href="{{ url_for('specialist.queue') }}">Очередь</a><span>/</span><span>{{ ticket.number }}</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "specialist/_sidebar.html" %}
+    <section class="content">
+        <h1>Заявка {{ ticket.number }}</h1>
+        <div class="card">
+            <p><strong>Тема:</strong> {{ ticket.title }}</p>
+            <p><strong>Заявитель:</strong> {{ ticket.author.full_name }}</p>
+            <p><strong>Категория:</strong> {{ ticket.category.name }} | <strong>Приоритет:</strong> {{ ticket.priority.name }}</p>
+            <p><strong>Описание:</strong> {{ ticket.description }}</p>
+        </div>
+
+        <div class="actions-grid">
+            <form method="post" class="form">
+                <input type="hidden" name="action" value="status">
+                <label>Изменить статус
+                    <select name="status_id">
+                        {% for s in statuses %}<option value="{{ s.id }}" {{ 'selected' if s.id == ticket.status_id }}>{{ s.name }}</option>{% endfor %}
+                    </select>
+                </label>
+                <button class="btn btn-small" type="submit">Применить</button>
+            </form>
+            <form method="post" class="form">
+                <input type="hidden" name="action" value="assign">
+                <label>Назначить исполнителя
+                    <select name="assignee_id">
+                        <option value="">— снять —</option>
+                        {% for s in specialists %}<option value="{{ s.id }}" {{ 'selected' if s.id == ticket.assignee_id }}>{{ s.full_name }}</option>{% endfor %}
+                    </select>
+                </label>
+                <button class="btn btn-small" type="submit">Назначить</button>
+            </form>
+        </div>
+
+        <h3>Комментарии</h3>
+        {% for c in ticket.comments %}
+        <div class="comment"><strong>{{ c.author.full_name }}</strong> <span class="muted">{{ c.created_at.strftime('%d.%m.%Y %H:%M') }}</span><p>{{ c.text }}</p></div>
+        {% else %}<p class="muted">Комментариев нет.</p>{% endfor %}
+        <form method="post" class="form">
+            <input type="hidden" name="action" value="comment">
+            <label>Добавить комментарий<textarea name="comment" rows="3"></textarea></label>
+            <button class="btn" type="submit">Отправить</button>
+        </form>
+    </section>
+</div>
+{% endblock %}
