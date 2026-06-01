@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Главная — Техподдержка университета{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>Служба технической поддержки университета</h1>
+    <p>Единое окно для решения всех технических вопросов: оборудование, программное обеспечение, сеть и учётные записи.</p>
+    <div class="hero-actions">
+        <a href="{{ url_for('tickets.new_ticket') if current_user.is_authenticated else url_for('auth.login') }}" class="btn">Подать заявку</a>
+        <a href="{{ url_for('main.how_to') }}" class="btn btn-ghost">Как это работает</a>
+    </div>
+</section>
+<section class="cards">
+    <div class="card"><h3>Быстрая обработка</h3><p>Заявки регистрируются автоматически и направляются профильным специалистам.</p></div>
+    <div class="card"><h3>Отслеживание</h3><p>Контролируйте статус своей заявки в личном кабинете в любое время.</p></div>
+    <div class="card"><h3>База знаний</h3><p>Многие вопросы можно решить самостоятельно с помощью наших инструкций.</p></div>
+</section>
+{% if articles %}
+<section>
+    <h2>Популярные статьи базы знаний</h2>
+    <ul class="list">
+        {% for a in articles %}
+        <li><a href="{{ url_for('main.knowledge_article', article_id=a.id) }}">{{ a.title }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+{% endblock %}
