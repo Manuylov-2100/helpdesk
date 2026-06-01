@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}База знаний{% endblock %}
+{% block crumbs %}<span>/</span><span>База знаний</span>{% endblock %}
+{% block content %}
+<h1>База знаний</h1>
+<form method="get" class="search-form">
+    <input type="text" name="q" value="{{ q }}" placeholder="Поиск по статьям...">
+    <button class="btn" type="submit">Найти</button>
+</form>
+<ul class="list">
+    {% for a in articles %}
+    <li><a href="{{ url_for('main.knowledge_article', article_id=a.id) }}">{{ a.title }}</a>
+        {% if a.category %}<span class="tag">{{ a.category.name }}</span>{% endif %}</li>
+    {% else %}
+    <li>Статьи не найдены.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

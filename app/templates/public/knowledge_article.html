@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block crumbs %}<span>/</span><a href="{{ url_for('main.knowledge') }}">База знаний</a><span>/</span><span>{{ article.title }}</span>{% endblock %}
+{% block content %}
+<article>
+    <h1>{{ article.title }}</h1>
+    {% if article.category %}<p class="tag">{{ article.category.name }}</p>{% endif %}
+    <div class="article-body">{{ article.content }}</div>
+</article>
+<a href="{{ url_for('main.knowledge') }}" class="btn btn-ghost">Назад к списку</a>
+{% endblock %}
