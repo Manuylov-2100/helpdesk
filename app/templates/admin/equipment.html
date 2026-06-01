@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Оборудование{% endblock %}
+{% block crumbs %}<span>/</span><a href="{{ url_for('admin.dashboard') }}">Администрирование</a><span>/</span><span>Оборудование</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "admin/_sidebar.html" %}
+    <section class="content">
+        <h1>Учёт оборудования</h1>
+        <form method="post" class="form-inline">
+            <input type="text" name="inventory_number" placeholder="Инв. номер" required>
+            <input type="text" name="name" placeholder="Наименование" required>
+            <input type="text" name="type" placeholder="Тип">
+            <select name="department_id"><option value="">— подразделение —</option>{% for d in departments %}<option value="{{ d.id }}">{{ d.name }}</option>{% endfor %}</select>
+            <button class="btn btn-small">Добавить</button>
+        </form>
+        <table class="data-table">
+            <thead><tr><th>Инв. номер</th><th>Наименование</th><th>Тип</th><th>Подразделение</th><th>Статус</th></tr></thead>
+            <tbody>
+            {% for e in equipment %}<tr><td>{{ e.inventory_number }}</td><td>{{ e.name }}</td><td>{{ e.type }}</td><td>{{ e.department.name if e.department else '—' }}</td><td>{{ e.status }}</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
+{% endblock %}
