@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Вход{% endblock %}
+{% block crumbs %}<span>/</span><span>Вход</span>{% endblock %}
+{% block content %}
+<div class="auth-box">
+    <h1>Вход в систему</h1>
+    <form method="post" class="form">
+        <label>Логин<input type="text" name="username" required></label>
+        <label>Пароль<input type="password" name="password" required></label>
+        <button class="btn" type="submit">Войти</button>
+    </form>
+    <p>Нет учётной записи? <a href="{{ url_for('auth.register') }}">Зарегистрироваться</a></p>
+    <div class="hint">
+        <p><strong>Демо-доступ:</strong></p>
+        <p>admin / admin123 — администратор</p>
+        <p>specialist / spec123 — специалист</p>
+        <p>user / user123 — заявитель</p>
+    </div>
+</div>
+{% endblock %}
