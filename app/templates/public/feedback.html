@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Обратная связь{% endblock %}
+{% block crumbs %}<span>/</span><span>Обратная связь</span>{% endblock %}
+{% block content %}
+<h1>Обратная связь</h1>
+<form method="post" class="form">
+    <label>Ваше имя*<input type="text" name="user_name" required></label>
+    <label>Электронная почта<input type="email" name="email"></label>
+    <label>Оценка обслуживания
+        <select name="rating">
+            <option value="">— не указывать —</option>
+            <option value="5">5 — отлично</option>
+            <option value="4">4 — хорошо</option>
+            <option value="3">3 — удовлетворительно</option>
+            <option value="2">2 — плохо</option>
+            <option value="1">1 — очень плохо</option>
+        </select>
+    </label>
+    <label>Сообщение*<textarea name="message" rows="5" required></textarea></label>
+    <button class="btn" type="submit">Отправить</button>
+</form>
+{% endblock %}
