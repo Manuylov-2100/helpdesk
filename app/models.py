@@ -69,7 +69,7 @@ class User(UserMixin, db.Model):
     )
     comments = db.relationship("Comment", back_populates="author")
 
-    #  работа с паролем 
+    #  работа с паролем
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -91,7 +91,6 @@ class User(UserMixin, db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return db.session.get(User, int(user_id))
-
 
 #  Справочники заявок
 class Category(db.Model):
@@ -133,13 +132,14 @@ class Status(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    is_closed = db.Column(db.Boolean, default=False)  # является ли статус закрытым
+    is_closed = db.Column(db.Boolean, default=False)
     description = db.Column(db.String(255))
 
     tickets = db.relationship("Ticket", back_populates="status")
 
     def __repr__(self):
         return f"<Status {self.name}>"
+
 
 #  Оборудование
 class Equipment(db.Model):
