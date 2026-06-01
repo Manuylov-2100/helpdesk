@@ -1,4 +1,4 @@
-"""Наполнение базы данных тестовыми данными."""
+"""Наполнение базы данных тестовыми данными"""
 
 from datetime import datetime, timedelta
 
@@ -14,7 +14,7 @@ from app.models import (
 def seed():
     app = create_app()
     with app.app_context():
-        # Полная очистка для повторного запуска
+        # Очистка для повторного запуска
         db.drop_all()
         db.create_all()
 
