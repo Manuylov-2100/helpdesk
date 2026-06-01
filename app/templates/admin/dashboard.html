@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Панель администратора{% endblock %}
+{% block crumbs %}<span>/</span><span>Администрирование</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "admin/_sidebar.html" %}
+    <section class="content">
+        <h1>Панель администратора</h1>
+        <div class="stats-grid">
+            <div class="stat"><span class="stat-num">{{ stats.users }}</span><span>Пользователей</span></div>
+            <div class="stat"><span class="stat-num">{{ stats.tickets }}</span><span>Заявок</span></div>
+            <div class="stat"><span class="stat-num">{{ stats.open }}</span><span>Открытых</span></div>
+            <div class="stat"><span class="stat-num">{{ stats.equipment }}</span><span>Оборудования</span></div>
+            <div class="stat"><span class="stat-num">{{ stats.articles }}</span><span>Статей БЗ</span></div>
+            <div class="stat"><span class="stat-num">{{ stats.feedback }}</span><span>Отзывов</span></div>
+        </div>
+    </section>
+</div>
+{% endblock %}
