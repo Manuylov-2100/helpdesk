@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Очередь заявок{% endblock %}
+{% block crumbs %}<span>/</span><span>Очередь</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "specialist/_sidebar.html" %}
+    <section class="content">
+        <h1>Очередь заявок</h1>
+        <form method="get" class="filter">
+            <select name="status" onchange="this.form.submit()">
+                <option value="">Все статусы</option>
+                {% for s in statuses %}<option value="{{ s.name }}" {{ 'selected' if s.name == status_filter }}>{{ s.name }}</option>{% endfor %}
+            </select>
+        </form>
+        <table class="data-table">
+            <thead><tr><th>Номер</th><th>Тема</th><th>Приоритет</th><th>Статус</th><th>Исполнитель</th></tr></thead>
+            <tbody>
+            {% for t in tickets %}
+                <tr onclick="location.href='{{ url_for('specialist.work', ticket_id=t.id) }}'" class="clickable">
+                    <td>{{ t.number }}</td><td>{{ t.title }}</td>
+                    <td>{{ t.priority.name }}</td><td><span class="badge">{{ t.status.name }}</span></td>
+                    <td>{{ t.assignee.full_name if t.assignee else '—' }}</td>
+                </tr>
+            {% else %}<tr><td colspan="5">Заявок нет.</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
+{% endblock %}
