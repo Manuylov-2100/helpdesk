@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Новая заявка{% endblock %}
+{% block crumbs %}<span>/</span><a href="{{ url_for('tickets.my_tickets') }}">Мои заявки</a><span>/</span><span>Новая</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "cabinet/_sidebar.html" %}
+    <section class="content">
+        <h1>Создание заявки</h1>
+        <form method="post" enctype="multipart/form-data" class="form">
+            <label>Тема*<input type="text" name="title" required></label>
+            <label>Описание проблемы*<textarea name="description" rows="5" required></textarea></label>
+            <label>Категория*
+                <select name="category_id" required>
+                    {% for c in categories %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}
+                </select>
+            </label>
+            <label>Приоритет*
+                <select name="priority_id" required>
+                    {% for p in priorities %}<option value="{{ p.id }}">{{ p.name }}</option>{% endfor %}
+                </select>
+            </label>
+            <label>Вложение (скриншот, документ)<input type="file" name="attachment"></label>
+            <button class="btn" type="submit">Отправить заявку</button>
+        </form>
+    </section>
+</div>
+{% endblock %}
