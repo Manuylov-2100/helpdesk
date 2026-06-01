@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Справочники{% endblock %}
+{% block crumbs %}<span>/</span><a href="{{ url_for('admin.dashboard') }}">Администрирование</a><span>/</span><span>Справочники</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "admin/_sidebar.html" %}
+    <section class="content">
+        <h1>Справочники</h1>
+        <div class="dict-grid">
+            <div>
+                <h3>Категории</h3>
+                <ul class="list">{% for c in categories %}<li>{{ c.name }}</li>{% endfor %}</ul>
+                <form method="post" class="form-inline"><input type="hidden" name="kind" value="category"><input type="text" name="name" placeholder="Новая категория" required><button class="btn btn-small">+</button></form>
+            </div>
+            <div>
+                <h3>Приоритеты</h3>
+                <ul class="list">{% for p in priorities %}<li>{{ p.name }} (ур. {{ p.level }})</li>{% endfor %}</ul>
+                <form method="post" class="form-inline"><input type="hidden" name="kind" value="priority"><input type="text" name="name" placeholder="Приоритет" required><input type="number" name="level" placeholder="ур." style="width:60px"><button class="btn btn-small">+</button></form>
+            </div>
+            <div>
+                <h3>Статусы</h3>
+                <ul class="list">{% for s in statuses %}<li>{{ s.name }}{% if s.is_closed %} (закрытый){% endif %}</li>{% endfor %}</ul>
+                <form method="post" class="form-inline"><input type="hidden" name="kind" value="status"><input type="text" name="name" placeholder="Статус" required><label class="checkbox"><input type="checkbox" name="is_closed"> закр.</label><button class="btn btn-small">+</button></form>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
