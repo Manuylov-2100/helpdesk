@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Уведомления{% endblock %}
+{% block crumbs %}<span>/</span><span>Уведомления</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "cabinet/_sidebar.html" %}
+    <section class="content">
+        <h1>Уведомления</h1>
+        {% for i in items %}
+        <div class="notification">
+            <span class="muted">{{ i.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+            <p>Заявка {{ i.ticket.number }}: {{ i.action }}{% if i.new_value %} — {{ i.new_value }}{% endif %}</p>
+        </div>
+        {% else %}
+        <p class="muted">Новых уведомлений нет.</p>
+        {% endfor %}
+    </section>
+</div>
+{% endblock %}
