@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Регламент обслуживания{% endblock %}
+{% block crumbs %}<span>/</span><span>Регламент</span>{% endblock %}
+{% block content %}
+<h1>Регламент обслуживания (SLA)</h1>
+<table class="data-table">
+    <thead><tr><th>Приоритет</th><th>Время реакции</th><th>Время решения</th></tr></thead>
+    <tbody>
+        <tr><td>Критический</td><td>15 минут</td><td>4 часа</td></tr>
+        <tr><td>Высокий</td><td>1 час</td><td>8 часов</td></tr>
+        <tr><td>Средний</td><td>4 часа</td><td>2 рабочих дня</td></tr>
+        <tr><td>Низкий</td><td>1 рабочий день</td><td>5 рабочих дней</td></tr>
+    </tbody>
+</table>
+<p>Время обслуживания: рабочие дни с 9:00 до 18:00.</p>
+{% endblock %}
