@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}База знаний{% endblock %}
+{% block crumbs %}<span>/</span><a href="{{ url_for('admin.dashboard') }}">Администрирование</a><span>/</span><span>База знаний</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "admin/_sidebar.html" %}
+    <section class="content">
+        <h1>Управление базой знаний</h1>
+        <table class="data-table">
+            <thead><tr><th>Заголовок</th><th>Категория</th><th>Опубликована</th><th></th></tr></thead>
+            <tbody>
+            {% for a in articles %}
+                <tr><td>{{ a.title }}</td><td>{{ a.category.name if a.category else '—' }}</td><td>{{ 'Да' if a.is_published else 'Нет' }}</td>
+                <td><form method="post" action="{{ url_for('admin.delete_article', article_id=a.id) }}" class="inline-form" onsubmit="return confirm('Удалить статью?')"><button class="btn btn-small btn-ghost">Удалить</button></form></td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
+{% endblock %}
