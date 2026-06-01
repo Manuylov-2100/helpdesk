@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Статистика{% endblock %}
+{% block crumbs %}<span>/</span><span>Статистика</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "specialist/_sidebar.html" %}
+    <section class="content">
+        <h1>Статистика</h1>
+        <div class="stats-grid">
+            <div class="stat"><span class="stat-num">{{ total }}</span><span>Всего заявок</span></div>
+            <div class="stat"><span class="stat-num">{{ open_count }}</span><span>Открытых</span></div>
+            <div class="stat"><span class="stat-num">{{ closed }}</span><span>Закрытых</span></div>
+            <div class="stat"><span class="stat-num">{{ assigned }}</span><span>Назначено мне</span></div>
+        </div>
+        <h3>Заявки по статусам</h3>
+        <table class="data-table">
+            <thead><tr><th>Статус</th><th>Количество</th></tr></thead>
+            <tbody>{% for name, cnt in by_status %}<tr><td>{{ name }}</td><td>{{ cnt }}</td></tr>{% endfor %}</tbody>
+        </table>
+    </section>
+</div>
+{% endblock %}
