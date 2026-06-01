@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}База знаний{% endblock %}
+{% block crumbs %}<span>/</span><span>База знаний</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "specialist/_sidebar.html" %}
+    <section class="content">
+        <h1>База знаний</h1>
+        <a href="{{ url_for('specialist.knowledge_edit') }}" class="btn">+ Новая статья</a>
+        <table class="data-table">
+            <thead><tr><th>Заголовок</th><th>Категория</th><th>Опубликована</th><th></th></tr></thead>
+            <tbody>
+            {% for a in articles %}
+                <tr><td>{{ a.title }}</td><td>{{ a.category.name if a.category else '—' }}</td>
+                <td>{{ 'Да' if a.is_published else 'Нет' }}</td>
+                <td><a href="{{ url_for('specialist.knowledge_edit', article_id=a.id) }}">Редактировать</a></td></tr>
+            {% else %}<tr><td colspan="4">Статей нет.</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
+{% endblock %}
