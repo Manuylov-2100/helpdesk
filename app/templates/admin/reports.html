@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Отчёты{% endblock %}
+{% block crumbs %}<span>/</span><a href="{{ url_for('admin.dashboard') }}">Администрирование</a><span>/</span><span>Отчёты</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "admin/_sidebar.html" %}
+    <section class="content">
+        <h1>Отчёты</h1>
+        <p>Всего заявок в системе: <strong>{{ total }}</strong></p>
+        <p>Выгрузка сводного отчёта по всем заявкам в формате Excel:</p>
+        <a href="{{ url_for('admin.report_xlsx') }}" class="btn">Скачать отчёт (.xlsx)</a>
+    </section>
+</div>
+{% endblock %}
