@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Редактирование статьи{% endblock %}
+{% block crumbs %}<span>/</span><a href="{{ url_for('specialist.knowledge_list') }}">База знаний</a><span>/</span><span>Статья</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "specialist/_sidebar.html" %}
+    <section class="content">
+        <h1>{{ 'Редактирование' if article else 'Новая' }} статья</h1>
+        <form method="post" class="form">
+            <label>Заголовок*<input type="text" name="title" value="{{ article.title if article else '' }}" required></label>
+            <label>Категория
+                <select name="category_id">
+                    <option value="">— не указана —</option>
+                    {% for c in categories %}<option value="{{ c.id }}" {{ 'selected' if article and article.category_id == c.id }}>{{ c.name }}</option>{% endfor %}
+                </select>
+            </label>
+            <label>Текст*<textarea name="content" rows="10" required>{{ article.content if article else '' }}</textarea></label>
+            <label class="checkbox"><input type="checkbox" name="is_published" {{ 'checked' if not article or article.is_published }}> Опубликовать</label>
+            <button class="btn" type="submit">Сохранить</button>
+        </form>
+    </section>
+</div>
+{% endblock %}
