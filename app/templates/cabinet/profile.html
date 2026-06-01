@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Профиль{% endblock %}
+{% block crumbs %}<span>/</span><span>Профиль</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "cabinet/_sidebar.html" %}
+    <section class="content">
+        <h1>Профиль</h1>
+        <form method="post" class="form">
+            <label>ФИО<input type="text" name="full_name" value="{{ current_user.full_name }}"></label>
+            <label>Логин<input type="text" value="{{ current_user.username }}" disabled></label>
+            <label>Электронная почта<input type="email" name="email" value="{{ current_user.email }}"></label>
+            <label>Роль<input type="text" value="{{ current_user.role.name }}" disabled></label>
+            <button class="btn" type="submit">Сохранить</button>
+        </form>
+    </section>
+</div>
+{% endblock %}
