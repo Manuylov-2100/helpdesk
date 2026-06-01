@@ -7,16 +7,62 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <header>
-        <h1>Служба технической поддержки университета</h1>
-    </header>
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="{{ url_for('main.index') }}" class="logo">Техподдержка университета</a>
+        <button class="nav-toggle" onclick="document.querySelector('.main-nav').classList.toggle('open')">&#9776;</button>
+        <nav class="main-nav">
+            <a href="{{ url_for('main.index') }}">Главная</a>
+            <a href="{{ url_for('main.about') }}">О службе</a>
+            <a href="{{ url_for('main.how_to') }}">Как подать заявку</a>
+            <a href="{{ url_for('main.services') }}">Услуги</a>
+            <a href="{{ url_for('main.sla') }}">Регламент</a>
+            <a href="{{ url_for('main.faq') }}">FAQ</a>
+            <a href="{{ url_for('main.knowledge') }}">База знаний</a>
+            <a href="{{ url_for('main.news') }}">Новости</a>
+            <a href="{{ url_for('main.contacts') }}">Контакты</a>
+            <a href="{{ url_for('main.track') }}">Проверить заявку</a>
+            <a href="{{ url_for('main.feedback') }}">Обратная связь</a>
+        </nav>
+        <div class="user-nav">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('main.dashboard') }}" class="btn btn-small">Кабинет</a>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-small btn-ghost">Выход</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn btn-small">Вход</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+<div class="container">
+    {% block breadcrumbs %}
+    <nav class="breadcrumbs">
+        <a href="{{ url_for('main.index') }}">Главная</a>
+        {% block crumbs %}{% endblock %}
+    </nav>
+    {% endblock %}
 
-    <footer>
-        <p>Разработал: Мануйлов Александр Сергеевич</p>
-    </footer>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-area">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<main class="container">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>Служба технической поддержки</p>
+        <p>Разработал: Мануйлов Александр Сергеевич &copy; {{ current_year }}</p>
+    </div>
+</footer>
 </body>
 </html>
