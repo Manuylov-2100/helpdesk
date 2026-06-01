@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Заявка {{ ticket.number }}{% endblock %}
+{% block crumbs %}<span>/</span><a href="{{ url_for('tickets.my_tickets') }}">Мои заявки</a><span>/</span><span>{{ ticket.number }}</span>{% endblock %}
+{% block content %}
+<div class="layout">
+    {% include "cabinet/_sidebar.html" %}
+    <section class="content">
+        <h1>Заявка {{ ticket.number }}</h1>
+        <div class="card">
+            <p><strong>Тема:</strong> {{ ticket.title }}</p>
+            <p><strong>Статус:</strong> <span class="badge">{{ ticket.status.name }}</span></p>
+            <p><strong>Категория:</strong> {{ ticket.category.name }}</p>
+            <p><strong>Приоритет:</strong> {{ ticket.priority.name }}</p>
+            <p><strong>Исполнитель:</strong> {{ ticket.assignee.full_name if ticket.assignee else 'не назначен' }}</p>
+            <p><strong>Создана:</strong> {{ ticket.created_at.strftime('%d.%m.%Y %H:%M') }}</p>
+            <p><strong>Описание:</strong></p>
+            <p>{{ ticket.description }}</p>
+        </div>
+
+        {% if ticket.attachments %}
+        <h3>Вложения</h3>
+        <ul class="list">
+            {% for a in ticket.attachments %}
+            <li><a href="{{ url_for('tickets.download_attachment', filename=a.filepath) }}">{{ a.filename }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <h3>Комментарии</h3>
+        {% for c in ticket.comments %}
+        <div class="comment"><strong>{{ c.author.full_name }}</strong> <span class="muted">{{ c.created_at.strftime('%d.%m.%Y %H:%M') }}</span><p>{{ c.text }}</p></div>
+        {% else %}
+        <p class="muted">Комментариев пока нет.</p>
+        {% endfor %}
+
+        <form method="post" class="form">
+            <label>Добавить комментарий<textarea name="comment" rows="3"></textarea></label>
+            <button class="btn" type="submit">Отправить</button>
+        </form>
+    </section>
+</div>
+{% endblock %}
