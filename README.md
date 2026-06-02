@@ -57,6 +57,7 @@ helpdesk/
 ├── run.py                 # точка входа
 ├── seed.py                # наполнение БД
 ├── helpdesk.db            # файл БД
+├── .gitignore
 └── requirements.txt
 ```
 
