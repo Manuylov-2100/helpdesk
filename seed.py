@@ -21,7 +21,7 @@ def seed():
         #  Роли 
         r_admin = Role(name="Администратор", description="Полный доступ к системе")
         r_spec = Role(name="Специалист поддержки", description="Обработка заявок")
-        r_user = Role(name="Заявитель", description="Создание заявок")
+        r_user = Role(name="Пользователь", description="Создание заявок")
         db.session.add_all([r_admin, r_spec, r_user])
         db.session.flush()
 
