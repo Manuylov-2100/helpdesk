@@ -159,7 +159,7 @@ def seed():
         print("\nУчётные записи:")
         print("  admin / admin123        — Администратор")
         print("  specialist / spec123    — Специалист поддержки")
-        print("  user / user123          — Заявитель")
+        print("  user / user123          — Заявитель/пользователь")
 
 
 if __name__ == "__main__":
