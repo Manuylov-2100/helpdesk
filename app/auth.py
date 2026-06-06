@@ -59,7 +59,7 @@ def register():
             for e in errors:
                 flash(e, "error")
         else:
-            role = Role.query.filter_by(name="Заявитель").first()
+            role = Role.query.filter_by(name="Пользователь").first()
             user = User(username=username, email=email, full_name=full_name,
                         role=role, department_id=department_id)
             user.set_password(password)
